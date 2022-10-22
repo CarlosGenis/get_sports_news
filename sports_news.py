@@ -5,7 +5,6 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 
-
 #function that checks if a link can be scraped for data
 def check_if_readable(link):
     url = link
@@ -51,13 +50,24 @@ def get_text(soup, lookHere):
     return text
 
 #print(get_text(soup, football_gossip_body))
+football_headlines = get_text(soup, football_gossip_body)
 #print(get_text(basketballsoup, basketball_top_stories_class))
 
 #initialize the app
-#if not firebase_admin._apps:
-cred = credentials.Certificate("htr-sports-firebase-adminsdk-e7d0r-0a3a0b0e41.json")
-    #firebase_admin.initialize_app(cred, {
-        #'databaseURL': 'https://htr-sports-default-rtdb.firebaseio.com/'
-        #})
-ref = db.reference("/Posts")
-print(ref.get())
+if not firebase_admin._apps:
+    cred = credentials.Certificate("htr-sports-firebase-adminsdk-e7d0r-0a3a0b0e41.json")
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://htr-sports-default-rtdb.firebaseio.com/'
+        })
+#Makes reference and retrieves dara
+#ref = db.reference("/Posts")
+#print(ref.get())
+
+football_gossip_ref = db.reference("/FootballGossip")
+#football_gossip_ref.push("testing2")
+
+#def push_to_db(db_ref, contentsList)
+
+#print(football_gossip_title)
+football_gossip_ref.push(football_gossip_title)
+football_gossip_ref.push(football_headlines)
