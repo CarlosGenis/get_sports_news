@@ -41,7 +41,7 @@ football_gossip_title = get_title(soup, football_gossip_class)
 
 #make links for basketball
 basketball_top_stories_class = "Columns_left__XkWXE"
-basketball_class = "ArticleTile_tile__y70gI"
+basketball_class = "MultiLineEllipsis_ellipsis___1H7z"
 
 def get_text(soup, lookHere):
     
@@ -52,7 +52,14 @@ def get_text(soup, lookHere):
 #print(get_text(soup, football_gossip_body))
 football_headlines = get_text(soup, football_gossip_body)
 #print(get_text(basketballsoup, basketball_top_stories_class))
+#print(get_title(basketballsoup, basketball_class))
 
+    
+def get_basketball_text(soup, lookHere):
+    body = soup.find(class_=lookHere)
+    text = [p.text for p in body.find_all("h3")] 
+    return text
+print(get_basketball_text(basketballsoup, basketball_top_stories_class))
 #initialize the app
 if not firebase_admin._apps:
     cred = credentials.Certificate("htr-sports-firebase-adminsdk-e7d0r-0a3a0b0e41.json")
@@ -64,10 +71,13 @@ if not firebase_admin._apps:
 #print(ref.get())
 
 football_gossip_ref = db.reference("/FootballGossip")
-#football_gossip_ref.push("testing2")
 
-#def push_to_db(db_ref, contentsList)
-
+def push_to_db(db_ref, contentsList):
+    db_ref.push(contentsList)
 #print(football_gossip_title)
-football_gossip_ref.push(football_gossip_title)
-football_gossip_ref.push(football_headlines)
+#football_gossip_ref.push(football_gossip_title)
+#football_gossip_ref.push(football_headlines)
+
+#push_to_db(football_gossip_ref, football_gossip_title)
+#push_to_db(football_gossip_ref, football_headlines)
+
