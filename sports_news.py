@@ -65,7 +65,7 @@ basketball_body = get_text(basketballsoup, basketball_top_stories_class)
 
 #initialize the app
 if not firebase_admin._apps:
-    cred = credentials.Certificate("htr-sports-firebase-adminsdk-e7d0r-0a3a0b0e41.json")
+    cred = credentials.Certificate("htr-sports-firebase-adminsdk-e7d0r-979df90027.json")
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://htr-sports-default-rtdb.firebaseio.com/'
         })
